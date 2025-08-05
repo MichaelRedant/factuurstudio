@@ -7,7 +7,8 @@ class PDFGenerator
     // Converteer UTF-8 naar Windows-1252 (voor FPDF)
     private static function e($str)
     {
-        return iconv('UTF-8', 'windows-1252//TRANSLIT', $str);
+        $converted = iconv('UTF-8', 'windows-1252//TRANSLIT', $str);
+        return $converted !== false ? $converted : $str;
     }
 
     public static function get_all_bedrijven()
@@ -58,7 +59,8 @@ class PDFGenerator
         shuffle($producten);
         $regels = [];
 
-        for ($i = 0; $i < $count; $i++) {
+        $max = min($count, count($producten));
+        for ($i = 0; $i < $max; $i++) {
             $omschrijving = $producten[$i];
             $aantal = rand(1, 10);
             $prijs = rand(1000, 50000) / 100;
@@ -108,7 +110,11 @@ class PDFGenerator
     // ✅ ENKEL ontvangen data gebruiken, niets random meer
     public static function generate_pdf($factuurnummer, $type, $klant, $leverancier, $regels, $btw, $totaal, $datum)
 {
-    $datum = date('d/m/Y', strtotime($datum));
+    $timestamp = $datum ? strtotime($datum) : false;
+        if ($timestamp === false) {
+            $timestamp = time();
+        }
+        $datum = date('d/m/Y', $timestamp);
 
         $pdf = new \FPDF();
         $pdf->AddPage();
@@ -172,7 +178,7 @@ $pdf->Ln(10);
         $pdf->Ln(10);
 
         $pdf->SetFont('Arial', 'I', 10);
-        $pdf->Cell(0, 8, self::e("Gegeneerd door Octopus Facturatiegenerator – testversie"), 0, 1);
+        $pdf->Cell(0, 8, self::e("Gegenereerd door Factuur Studio – testversie"), 0, 1);
 
         $upload_dir = wp_upload_dir();
         $base_path = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/' . $type . '/';

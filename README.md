@@ -16,7 +16,7 @@ Een krachtige WordPress-plugin om voorbeeldfacturen te genereren in PDF + Peppol
 - `includes/` – Factuurgeneratie & handlers
 - `templates/` – Admin UI templates
 - `assets/` – CSS en JS
-- `logs/` – E-mail logs
+- `octopus-invoices/logs/` – E-mail logs (PHP array in WordPress uploads)
 - `admin/` – Extra admin pagina’s zoals log-view
 - `octopus-facturatiegenerator.php` – Plugin hoofdbestand
 

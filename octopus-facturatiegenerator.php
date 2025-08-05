@@ -352,7 +352,8 @@ function octopus_facturatie_settings_page() {
 
 function octopus_email_log_page()
 {
-    $log_path = plugin_dir_path(__FILE__) . 'logs/email-log.txt';
+    $upload_dir = wp_upload_dir();
+    $log_path = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/logs/email-log.php';
 
     echo '<div class="wrap">';
     echo '<h1>📧 E-mailverzendlog</h1>';
@@ -362,26 +363,25 @@ function octopus_email_log_page()
         return;
     }
 
-    $regels = file($log_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $entries = include $log_path;
 
-    if (empty($regels)) {
+    if (!is_array($entries) || empty($entries)) {
         echo '<p>Logbestand is leeg.</p></div>';
         return;
     }
 
     echo '<table class="widefat fixed striped">';
-    echo '<thead><tr><th>Datum & Tijd</th><th>Status</th><th>Ontvanger</th><th>Links</th></tr></thead><tbody>';
+    echo '<thead><tr><th>Datum & Tijd</th><th>Status</th><th>Ontvanger</th><th>Bestand(en)</th></tr></thead><tbody>';
 
-    foreach (array_reverse($regels) as $regel) {
-        preg_match('/^(.*?) \| (.*?) \| Naar: (.*?) \| Link\(s\): (.*)$/', $regel, $match);
-        if ($match) {
-            echo '<tr>';
-            echo '<td>' . esc_html($match[1]) . '</td>';
-            echo '<td>' . ($match[2] === '✅ SUCCES' ? '<span style="color:green;">' . $match[2] . '</span>' : '<span style="color:red;">' . $match[2] . '</span>') . '</td>';
-            echo '<td>' . esc_html($match[3]) . '</td>';
-            echo '<td><small>' . esc_html($match[4]) . '</small></td>';
-            echo '</tr>';
-        }
+    foreach (array_reverse($entries) as $entry) {
+        $files = !empty($entry['files']) ? implode('<br>', array_map('esc_html', $entry['files'])) : '';
+        $status = $entry['status'] ?? '';
+        echo '<tr>';
+        echo '<td>' . esc_html($entry['timestamp'] ?? '') . '</td>';
+        echo '<td>' . ($status === '✅ SUCCES' ? '<span style="color:green;">' . esc_html($status) . '</span>' : '<span style="color:red;">' . esc_html($status) . '</span>') . '</td>';
+        echo '<td>' . esc_html($entry['to'] ?? '') . '</td>';
+        echo '<td><small>' . $files . '</small></td>';
+        echo '</tr>';
     }
 
     echo '</tbody></table></div>';

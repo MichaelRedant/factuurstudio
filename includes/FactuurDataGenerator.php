@@ -17,7 +17,7 @@ class FactuurDataGenerator
         }
 
         // Custom klant of leverancier instellen
-        if (!empty($custom_klant['naam']) && !empty($custom_klant['btw'])) {
+        if (!empty($custom_klant) && !empty($custom_klant['naam']) && !empty($custom_klant['btw'])) {
             $custom = [
                 'naam'  => $custom_klant['naam'],
                 'adres' => $custom_klant['adres'],
