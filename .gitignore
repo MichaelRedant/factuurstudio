@@ -1,0 +1,16 @@
+# Exclude tijdelijke bestanden
+*.zip
+*.log
+*.tmp
+*.bak
+
+# WordPress uploads, logbestanden en lokale caches
+/wp-content/uploads/
+/logs/
+/vendor/
+/node_modules/
+
+/.idea/
+/.vscode/
+.DS_Store
+Thumbs.db
