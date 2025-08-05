@@ -325,8 +325,9 @@ HTML;
     echo '<label for="email_to_xml" class="octopus-label">E-mailadres ontvanger</label>';
     echo '<input type="email" name="email_to_xml" id="email_to_xml" class="octopus-input" placeholder="naam@voorbeeld.com" required>';
     echo '</div>';
-    echo '<button type="submit" class="octopus-button octopus-delete">🗑️ Verwijder geselecteerde facturen</button>';
+    
     echo '<button type="button" id="send_xml_btn" class="octopus-button octopus-send">📤 Verstuur geselecteerde XML</button>';
+    echo '<button type="submit" class="octopus-button octopus-delete">🗑️ Verwijder geselecteerde facturen</button>';
     echo '<div class="octopus-feedback"></div>';
     echo '</div>';
 
