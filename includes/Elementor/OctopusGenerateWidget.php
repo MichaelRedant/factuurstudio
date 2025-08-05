@@ -30,6 +30,8 @@ class OctopusGenerateWidget extends Widget_Base {
         return ['elementor-icons'];
     }
 
+    
+
     protected function register_controls() {
         // Content
         $this->start_controls_section(
@@ -175,6 +177,18 @@ class OctopusGenerateWidget extends Widget_Base {
     protected function render() {
     $settings = $this->get_settings_for_display();
 
+    $branch_options = '';
+$branches_path = plugin_dir_path(__FILE__) . '../../data/branches.json';
+if (file_exists($branches_path)) {
+    $branches = json_decode(file_get_contents($branches_path), true);
+    if (is_array($branches)) {
+        foreach (array_keys($branches) as $branch) {
+            $branch_options .= '<option value="' . esc_attr($branch) . '">' . esc_html($branch) . '</option>';
+        }
+    }
+}
+
+
     echo '<div class="octopus-generate-wrapper">';
 
     // ✅ Meldingen (binnen wrapper, verdwijnen automatisch)
@@ -203,6 +217,10 @@ class OctopusGenerateWidget extends Widget_Base {
     echo '<input type="date" name="date_to"><br><br>';
 
     echo '<h4>Klant- of Leveranciersgegevens</h4>';
+
+    echo '<label>Branche:</label><br>';
+echo '<select name="branche"><option value="">-- Kies een branche --</option>' . $branch_options . '</select><br><br>';
+
 
     echo '<label>Naam:</label><br>';
     echo '<input type="text" name="naam" placeholder="bv. Octopus BV"><br>';

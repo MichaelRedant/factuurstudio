@@ -49,8 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_admin_referer('octopus_genera
         echo '<div class="notice notice-error"><p>Selecteer minstens één factuurtype (verkoop of aankoop).</p></div>';
     } else {
         require_once plugin_dir_path(__DIR__) . 'includes/FactuurGenerator.php';
-        $generator = new FactuurGenerator($_POST);
-        $result = $generator->generate();
+        $generator = new FactuurGenerator([
+    ...$_POST,
+    'branche' => sanitize_text_field($_POST['branche'] ?? '')
+]);
+$result = $generator->generate();
 
         if ($result === true) {
             echo '<div class="notice notice-success"><p>Facturen succesvol gegenereerd!</p></div>';
@@ -59,6 +62,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_admin_referer('octopus_genera
         }
     }
 }
+function octopus_get_available_branches(): array {
+    $json_path = plugin_dir_path(__FILE__) . '/../data/branches.json';
+    if (!file_exists($json_path)) return [];
+
+    $json = file_get_contents($json_path);
+    $data = json_decode($json, true);
+
+    return is_array($data) ? array_keys($data) : [];
+}
+
 ?>
 
 <div class="wrap">
@@ -147,6 +160,7 @@ echo "\n✔️ Klaar! " . count($valid_bedrijven) . " bedrijven opgeslagen in be
     <?php wp_nonce_field('octopus_generate_invoices'); ?>
 
     <h2 class="title">⚙️ Instellingen factuurgeneratie</h2>
+    
 
     <table class="form-table">
         <tr>
@@ -192,7 +206,23 @@ echo "\n✔️ Klaar! " . count($valid_bedrijven) . " bedrijven opgeslagen in be
                 <label><input type="checkbox" name="anonymous" id="anonymous" /> Genereer zonder klantgegevens</label>
             </td>
         </tr>
+        
     </table>
+
+    <tr>
+    <th scope="row"><label for="branche">Branche / Sector</label></th>
+    <td>
+        <select name="branche" id="branche" class="regular-text">
+            <option value="">-- Willekeurig --</option>
+            <?php foreach (octopus_get_available_branches() as $branch): ?>
+                <option value="<?php echo esc_attr($branch); ?>">
+                    <?php echo esc_html($branch); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <p class="description">Kies een sector om bijpassende producten of diensten te genereren.</p>
+    </td>
+</tr>
 
     <?php submit_button('📄 Genereer Facturen'); ?>
 </form>

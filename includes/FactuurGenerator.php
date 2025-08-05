@@ -13,6 +13,8 @@ class FactuurGenerator
     private $custom_gegevens = [];
     private $datum_van;
     private $datum_tot;
+    private $branche;
+
 
     public function __construct($post_data)
     {
@@ -24,13 +26,16 @@ class FactuurGenerator
         $this->anoniem = !empty($post_data['anonymous']);
 
         $this->custom_gegevens = [
-            'naam'  => sanitize_text_field($post_data['naam'] ?? ''),
-            'adres' => sanitize_text_field($post_data['adres'] ?? ''),
-            'btw'   => strtoupper(str_replace(' ', '', $post_data['btw'] ?? '')),
-        ];
+    'naam'    => sanitize_text_field($post_data['naam'] ?? ''),
+    'adres'   => sanitize_text_field($post_data['adres'] ?? ''),
+    'btw'     => strtoupper(str_replace(' ', '', $post_data['btw'] ?? '')),
+    'branche' => sanitize_text_field($post_data['branche'] ?? ''),
+];
 
         $this->datum_van = !empty($post_data['date_from']) ? strtotime($post_data['date_from']) : strtotime('-30 days');
         $this->datum_tot = !empty($post_data['date_to']) ? strtotime($post_data['date_to']) : time();
+        $this->branche = sanitize_text_field($post_data['branche'] ?? '');
+
     }
 
     public function generate()
@@ -69,11 +74,12 @@ $factuurnummer = $prefix . '-' . $unique_id;
             $factuurdatum = $this->genereer_datum_in_range();
 
             $data = FactuurDataGenerator::generate(
-                $factuurnummer,
-                $type,
-                $factuurdatum,
-                $this->anoniem ? null : $this->custom_gegevens
-            );
+    $factuurnummer,
+    $type,
+    $factuurdatum,
+    $this->anoniem ? null : $this->custom_gegevens,
+    $this->branche
+);
 
             $pdf_path = $base_path . $data['factuurnummer'] . '.pdf';
 

@@ -73,6 +73,38 @@ class PDFGenerator
         return $regels;
     }
 
+    public static function get_products_by_branch($branch, $count = 3)
+{
+    $pad = plugin_dir_path(__FILE__) . '../data/branches.json';
+    if (!file_exists($pad)) return self::get_random_products($count);
+
+    $json = file_get_contents($pad);
+    $branches = json_decode($json, true);
+
+    if (!is_array($branches) || !isset($branches[$branch])) {
+        return self::get_random_products($count);
+    }
+
+    $producten = $branches[$branch];
+    shuffle($producten);
+    $regels = [];
+
+    for ($i = 0; $i < min($count, count($producten)); $i++) {
+        $omschrijving = $producten[$i];
+        $aantal = rand(1, 10);
+        $prijs = rand(1000, 50000) / 100;
+        $regels[] = [
+            'omschrijving' => $omschrijving,
+            'aantal' => $aantal,
+            'prijs' => $prijs,
+            'subtotaal' => $aantal * $prijs
+        ];
+    }
+
+    return $regels;
+}
+
+
     // ✅ ENKEL ontvangen data gebruiken, niets random meer
     public static function generate_pdf($factuurnummer, $type, $klant, $leverancier, $regels, $btw, $totaal, $datum)
 {
