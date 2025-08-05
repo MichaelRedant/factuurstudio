@@ -1,0 +1,143 @@
+.octopus-button {
+  background-color: #0073aa;
+  color: #fff;
+  border: none;
+  padding: 0.8em 1.4em;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.octopus-button:hover {
+  background-color: #005b8c;
+}
+
+.octopus-generate-wrapper,
+.octopus-verwijder-wrapper,
+.octopus-xml-wrapper,
+.octopus-download-wrapper,
+.octopus-facturen-wrapper {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2em;
+  margin-bottom: 2em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.octopus-generate-form input[type="text"],
+.octopus-generate-form input[type="number"],
+.octopus-generate-form input[type="date"],
+.octopus-generate-form input[type="email"] {
+  padding: 0.6em;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.octopus-generate-form label,
+.octopus-verwijder-form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+.octopus-verwijder-form input[type="checkbox"],
+.octopus-xml-form input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+
+.octopus-facturen-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+
+.octopus-facturen-table th,
+.octopus-facturen-table td {
+  padding: 0.6em 1em;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.octopus-facturen-table th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+}
+
+.octopus-facturen-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.octopus-facturen-tabel {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.octopus-facturen-tabel th,
+.octopus-facturen-tabel td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.octopus-success {
+    background: #d1f7d6;
+    padding: 10px;
+    border-left: 4px solid green;
+    margin-bottom: 15px;
+}
+.octopus-error {
+    background: #fbe3e4;
+    padding: 10px;
+    border-left: 4px solid red;
+    margin-bottom: 15px;
+}
+
+.octopus-verwijder-wrapper label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.octopus-verwijder-wrapper .octopus-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.octopus-verwijder-wrapper .octopus-button:hover {
+    background-color: #c82333;
+}
+
+.octopus-verstuur-wrapper label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.octopus-verstuur-wrapper .octopus-button {
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.octopus-verstuur-wrapper .octopus-button:hover {
+    background-color: #005177;
+}
+
+.octopus-verstuur-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.octopus-feedback.success { background: #d4edda; color: #155724; padding: 10px; border-left: 4px solid #28a745; margin-bottom: 20px; }
+.octopus-feedback.error { background: #f8d7da; color: #721c24; padding: 10px; border-left: 4px solid #dc3545; margin-bottom: 20px; }
