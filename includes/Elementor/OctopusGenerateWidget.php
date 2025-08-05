@@ -48,6 +48,22 @@ class OctopusGenerateWidget extends Widget_Base {
             ]
         );
 
+        $this->add_control(
+            'columns',
+            [
+                'label' => __('Kolommen', 'plugin-name'),
+                'type' => Controls_Manager::SELECT,
+                'options' => [
+                    '1' => __('1 kolom', 'plugin-name'),
+                    '2' => __('2 kolommen', 'plugin-name'),
+                ],
+                'default' => '1',
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-generate-form' => 'display:grid; grid-template-columns: repeat({{VALUE}}, 1fr);',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         // Stijl: Algemene tekst
@@ -131,6 +147,38 @@ class OctopusGenerateWidget extends Widget_Base {
 
         $this->end_controls_section();
 
+         // Stijl: Layout
+        $this->start_controls_section(
+            'section_style_layout',
+            [
+                'label' => __('Layout', 'plugin-name'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'field_gap',
+            [
+                'label' => __('Afstand tussen velden', 'plugin-name'),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'default' => [
+                    'size' => 16,
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-generate-form' => 'gap: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+
         // Stijl: Knop
         $this->start_controls_section(
             'section_style_button',
@@ -206,39 +254,60 @@ if (file_exists($branches_path)) {
     echo '<input type="hidden" name="action" value="octopus_generate_facturen_frontend">';
     wp_nonce_field('octopus_generate_invoices');
 
-    echo '<label><input type="checkbox" name="simulate_verkoop" value="1"> Verkoopfacturen</label><br>';
-    echo '<label><input type="checkbox" name="simulate_aankoop" value="1"> Aankoopfacturen</label><br><br>';
+   echo '<div class="octopus-field-full octopus-checks">';
+    echo '<label><input type="checkbox" name="simulate_verkoop" value="1"> Verkoopfacturen</label>';
+    echo '<label><input type="checkbox" name="simulate_aankoop" value="1"> Aankoopfacturen</label>';
+    echo '</div>';
 
-    echo '<label>Aantal per type:</label><br>';
-    echo '<input type="number" name="count" value="1" min="1" max="100"><br><br>';
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-count">Aantal per type:</label>';
+    echo '<input type="number" id="octopus-count" name="count" value="1" min="1" max="100">';
+    echo '</div>';
 
-    echo '<label>Datum bereik:</label><br>';
-    echo '<input type="date" name="date_from"> tot ';
-    echo '<input type="date" name="date_to"><br><br>';
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-date-from">Datum bereik:</label>';
+    echo '<div class="octopus-date-range">';
+    echo '<input type="date" id="octopus-date-from" name="date_from">';
+    echo '<span>tot</span>';
+    echo '<input type="date" id="octopus-date-to" name="date_to">';
+    echo '</div>';
+    echo '</div>';
 
-    echo '<h4>Klant- of Leveranciersgegevens</h4>';
+    echo '<div class="octopus-field-full"><h4>Klant- of Leveranciersgegevens</h4></div>';
 
-    echo '<label>Branche:</label><br>';
-echo '<select name="branche"><option value="">-- Kies een branche --</option>' . $branch_options . '</select><br><br>';
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-branche">Branche:</label>';
+    echo '<select id="octopus-branche" name="branche"><option value="">-- Kies een branche --</option>' . $branch_options . '</select>';
+    echo '</div>';
 
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-naam">Naam:</label>';
+    echo '<input type="text" id="octopus-naam" name="naam" placeholder="bv. Octopus BV">';
+    echo '</div>';
 
-    echo '<label>Naam:</label><br>';
-    echo '<input type="text" name="naam" placeholder="bv. Octopus BV"><br>';
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-adres">Adres:</label>';
+    echo '<input type="text" id="octopus-adres" name="adres" placeholder="Straat 1, 1000 Brussel">';
+    echo '</div>';
 
-    echo '<label>Adres:</label><br>';
-    echo '<input type="text" name="adres" placeholder="Straat 1, 1000 Brussel"><br>';
+    echo '<div class="octopus-field">';
+    echo '<label for="octopus-btw">BTW-nummer:</label>';
+    echo '<input type="text" id="octopus-btw" name="btw" placeholder="BE0123456789">';
+    echo '</div>';
 
-    echo '<label>BTW-nummer:</label><br>';
-    echo '<input type="text" name="btw" placeholder="BE0123456789"><br><br>';
+    // echo '<div class="octopus-field"><label><input type="checkbox" name="anonymous"> Genereer anoniem (zonder klantgegevens)</label></div>';
 
-    echo '<label><input type="checkbox" name="anonymous"> Genereer anoniem (zonder klantgegevens)</label><br><br>';
-
-    echo '<button type="submit" class="octopus-button">Genereer Facturen</button>';
+    echo '<div class="octopus-field-full"><button type="submit" class="octopus-button">Genereer Facturen</button></div>';
     echo '</form></div>';
 
     // ✅ Meldingen automatisch laten verdwijnen
     echo <<<JS
     <style>
+    .octopus-generate-form { display: grid; gap: 16px; grid-template-columns: 1fr; }
+        .octopus-generate-form .octopus-field { display: flex; flex-direction: column; }
+        .octopus-generate-form .octopus-field-full { grid-column: 1 / -1; }
+        .octopus-generate-form .octopus-checks { display: flex; gap: 1rem; }
+        .octopus-generate-form .octopus-date-range { display: flex; gap: 0.5rem; align-items: center; }
         .octopus-dismissible {
             transition: opacity 0.6s ease-out;
         }
