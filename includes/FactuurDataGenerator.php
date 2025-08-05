@@ -38,21 +38,37 @@ class FactuurDataGenerator
         $regels = self::get_branch_products($branche, $randomAantal);
         if (empty($regels)) {
             // Branche detectie (voor verkoop → leverancier, voor aankoop → klant)
-$branche = null;
-if ($type === 'verkoop' && !empty($custom_klant['branche'])) {
-    $branche = $custom_klant['branche'];
-} elseif ($type === 'aankoop' && !empty($custom_klant['branche'])) {
-    $branche = $custom_klant['branche'];
-}
+ $branche = null;
+            if ($type === 'verkoop' && !empty($custom_klant['branche'])) {
+                $branche = $custom_klant['branche'];
+            } elseif ($type === 'aankoop' && !empty($custom_klant['branche'])) {
+                $branche = $custom_klant['branche'];
+            }
 
 $regels = $branche
-    ? PDFGenerator::get_products_by_branch($branche, rand(2, 6))
-    : PDFGenerator::get_random_products(rand(2, 6));
+                ? PDFGenerator::get_products_by_branch($branche, rand(2, 6))
+                : PDFGenerator::get_random_products(rand(2, 6));
         }
 
+        // Voeg btw per regel toe (standaard 21%)
+        foreach ($regels as &$regel) {
+            if (!isset($regel['vat_rate'])) {
+                $regel['vat_rate'] = 21;
+            }
+            $regel['vat_amount'] = round($regel['subtotaal'] * ($regel['vat_rate'] / 100), 2);
+        }
+        unset($regel);
+
         $subtotaal = array_sum(array_column($regels, 'subtotaal'));
-        $btw = round($subtotaal * 0.21, 2);
-        $totaal = round($subtotaal + $btw, 2);
+        $btw_totals = [];
+        foreach ($regels as $regel) {
+            $rate = $regel['vat_rate'];
+            if (!isset($btw_totals[$rate])) {
+                $btw_totals[$rate] = 0;
+            }
+            $btw_totals[$rate] += $regel['vat_amount'];
+        }
+        $totaal = round($subtotaal + array_sum($btw_totals), 2);
 
         return [
             'factuurnummer' => $factuurnummer,
@@ -61,7 +77,7 @@ $regels = $branche
             'klant' => $klant,
             'leverancier' => $leverancier,
             'regels' => $regels,
-            'btw' => $btw,
+            'btw' => $btw_totals,
             'totaal' => $totaal,
         ];
     }
@@ -84,15 +100,20 @@ $regels = $branche
         shuffle($producten);
 
         $regels = [];
-        foreach (array_slice($producten, 0, $aantal) as $omschrijving) {
+        foreach (array_slice($producten, 0, $aantal) as $product) {
+            $omschrijving = $product['omschrijving'];
+            $vat_rate = $product['vat_rate'] ?? 21;
             $aantal_stuks = rand(1, 10);
             $prijs = rand(1000, 50000) / 100;
+            $sub = $aantal_stuks * $prijs;
 
             $regels[] = [
                 'omschrijving' => $omschrijving,
                 'aantal' => $aantal_stuks,
                 'prijs' => $prijs,
-                'subtotaal' => $aantal_stuks * $prijs
+                'subtotaal' => $sub,
+                'vat_rate' => $vat_rate,
+                'vat_amount' => round($sub * ($vat_rate / 100), 2)
             ];
         }
 

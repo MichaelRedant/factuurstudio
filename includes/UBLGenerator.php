@@ -9,8 +9,18 @@ class UBLGenerator
         $currency = 'EUR';
 
         $subtotaal = array_sum(array_column($regels, 'subtotaal'));
+        $vat_totals = [];
+        foreach ($regels as $regel) {
+            $rate = $regel['vat_rate'];
+            if (!isset($vat_totals[$rate])) {
+                $vat_totals[$rate] = ['taxable' => 0, 'tax' => 0];
+            }
+            $vat_totals[$rate]['taxable'] += $regel['subtotaal'];
+            $vat_totals[$rate]['tax'] += $regel['vat_amount'];
+        }
+        $btw_total = array_sum(array_column($vat_totals, 'tax'));
         $subtotaal_fmt = number_format($subtotaal, 2, '.', '');
-        $btw_fmt = number_format($btw, 2, '.', '');
+        $btw_fmt = number_format($btw_total, 2, '.', '');
         $totaal_fmt = number_format($totaal, 2, '.', '');
 
         // ✅ Start XML
@@ -110,17 +120,26 @@ XML;
         $xml .= <<<XML
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{$currency}">{$btw_fmt}</cbc:TaxAmount>
+XML;
+
+        foreach ($vat_totals as $rate => $values) {
+            $taxable_fmt = number_format($values['taxable'], 2, '.', '');
+            $tax_fmt = number_format($values['tax'], 2, '.', '');
+            $xml .= <<<XML
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="{$currency}">{$subtotaal_fmt}</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="{$currency}">{$btw_fmt}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{$currency}">{$taxable_fmt}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{$currency}">{$tax_fmt}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:ID>S</cbc:ID>
-                <cbc:Percent>21</cbc:Percent>
+                <cbc:Percent>{$rate}</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
-    </cac:TaxTotal>
+
 XML;
+}
+
+        $xml .= "    </cac:TaxTotal>";
 
         // ✅ Totalen
         $xml .= <<<XML
@@ -139,12 +158,27 @@ XML;
             $aantal = $regel['aantal'];
             $prijs = number_format($regel['prijs'], 2, '.', '');
             $lijn_totaal = number_format($regel['subtotaal'], 2, '.', '');
+            $line_taxable = number_format($regel['subtotaal'], 2, '.', '');
+            $line_tax_amount = number_format($regel['vat_amount'], 2, '.', '');
+            $rate = $regel['vat_rate'];
 
             $xml .= <<<LINE
     <cac:InvoiceLine>
         <cbc:ID>{$line_id}</cbc:ID>
         <cbc:InvoicedQuantity unitCode="C62">{$aantal}</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="{$currency}">{$lijn_totaal}</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{$currency}">{$line_tax_amount}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{$currency}">{$line_taxable}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{$currency}">{$line_tax_amount}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>{$rate}</cbc:Percent>
+                    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
         <cac:Item>
             <cbc:Name>{$omschrijving}</cbc:Name>
             <cac:ClassifiedTaxCategory>

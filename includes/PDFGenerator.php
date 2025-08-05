@@ -77,34 +77,35 @@ class PDFGenerator
 
     public static function get_products_by_branch($branch, $count = 3)
 {
-    $pad = plugin_dir_path(__FILE__) . '../data/branches.json';
-    if (!file_exists($pad)) return self::get_random_products($count);
+        $pad = plugin_dir_path(__FILE__) . '../data/branches.json';
+        if (!file_exists($pad)) return self::get_random_products($count);
 
     $json = file_get_contents($pad);
-    $branches = json_decode($json, true);
+        $branches = json_decode($json, true);
 
     if (!is_array($branches) || !isset($branches[$branch])) {
-        return self::get_random_products($count);
-    }
+            return self::get_random_products($count);
+        }
 
-    $producten = $branches[$branch];
-    shuffle($producten);
-    $regels = [];
+     $producten = $branches[$branch];
+        shuffle($producten);
+        $regels = [];
 
-    for ($i = 0; $i < min($count, count($producten)); $i++) {
-        $omschrijving = $producten[$i];
-        $aantal = rand(1, 10);
-        $prijs = rand(1000, 50000) / 100;
-        $regels[] = [
-            'omschrijving' => $omschrijving,
-            'aantal' => $aantal,
-            'prijs' => $prijs,
-            'subtotaal' => $aantal * $prijs
-        ];
-    }
+        for ($i = 0; $i < min($count, count($producten)); $i++) {
+            $product = $producten[$i];
+            $omschrijving = is_array($product) ? $product['omschrijving'] : $product;
+            $aantal = rand(1, 10);
+            $prijs = rand(1000, 50000) / 100;
+            $regels[] = [
+                'omschrijving' => $omschrijving,
+                'aantal' => $aantal,
+                'prijs' => $prijs,
+                'subtotaal' => $aantal * $prijs
+            ];
+        }
 
     return $regels;
-}
+    }
 
 
     // ✅ ENKEL ontvangen data gebruiken, niets random meer
@@ -142,38 +143,45 @@ class PDFGenerator
         $pdf->Ln(10);
 
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(80, 8, self::e("Omschrijving"), 1);
-        $pdf->Cell(30, 8, self::e("Aantal"), 1);
-        $pdf->Cell(40, 8, self::e("Prijs"), 1);
-        $pdf->Cell(40, 8, self::e("Subtotaal"), 1);
+        $pdf->Cell(60, 8, self::e("Omschrijving"), 1);
+        $pdf->Cell(20, 8, self::e("Aantal"), 1);
+        $pdf->Cell(30, 8, self::e("Prijs"), 1);
+        $pdf->Cell(30, 8, self::e("Subtotaal"), 1);
+        $pdf->Cell(20, 8, self::e("BTW %"), 1);
+        $pdf->Cell(30, 8, self::e("BTW"), 1);
         $pdf->Ln();
 
         $pdf->SetFont('Arial', '', 12);
         foreach ($regels as $regel) {
-            $pdf->Cell(80, 8, self::e($regel['omschrijving']), 1);
-            $pdf->Cell(30, 8, $regel['aantal'], 1);
-            $pdf->Cell(40, 8, self::e("€" . number_format($regel['prijs'], 2, ',', ' ')), 1);
-            $pdf->Cell(40, 8, self::e("€" . number_format($regel['subtotaal'], 2, ',', ' ')), 1);
+            $pdf->Cell(60, 8, self::e($regel['omschrijving']), 1);
+            $pdf->Cell(20, 8, $regel['aantal'], 1);
+            $pdf->Cell(30, 8, self::e("€" . number_format($regel['prijs'], 2, ',', ' ')), 1);
+            $pdf->Cell(30, 8, self::e("€" . number_format($regel['subtotaal'], 2, ',', ' ')), 1);
+            $pdf->Cell(20, 8, self::e($regel['vat_rate'] . '%'), 1);
+            $pdf->Cell(30, 8, self::e("€" . number_format($regel['vat_amount'], 2, ',', ' ')), 1);
             $pdf->Ln();
         }
 
         $pdf->Ln(5);
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(60, 8, self::e("Subtotaal (excl. btw)"), 0, 0);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 8, self::e("€" . number_format($totaal - $btw, 2, ',', ' ')), 0, 1);
+$subtotaal = array_sum(array_column($regels, 'subtotaal'));
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(60, 8, self::e("Subtotaal (excl. btw)"), 0, 0);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(0, 8, self::e("€" . number_format($subtotaal, 2, ',', ' ')), 0, 1);
 
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(60, 8, self::e("BTW (21%)"), 0, 0);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 8, self::e("€" . number_format($btw, 2, ',', ' ')), 0, 1);
+        foreach ($btw as $rate => $amount) {
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->Cell(60, 8, self::e("BTW ({$rate}%)"), 0, 0);
+            $pdf->SetFont('Arial', '', 12);
+            $pdf->Cell(0, 8, self::e("€" . number_format($amount, 2, ',', ' ')), 0, 1);
+        }
 
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(60, 8, self::e("Totaal incl. btw"), 0, 0);
-$pdf->SetFont('Arial', '', 12);
-$pdf->Cell(0, 8, self::e("€" . number_format($totaal, 2, ',', ' ')), 0, 1);
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->Cell(60, 8, self::e("Totaal incl. btw"), 0, 0);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(0, 8, self::e("€" . number_format($totaal, 2, ',', ' ')), 0, 1);
 
-$pdf->Ln(10);
+        $pdf->Ln(10);
 
         $pdf->Ln(10);
 
