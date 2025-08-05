@@ -138,7 +138,7 @@ function octopus_handle_delete_files() {
         wp_die('Geen toestemming of ongeldige aanvraag.');
     }
 
-    $files = $_POST['delete_pdfs'] ?? [];
+    $files = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
 
     $upload_dir = wp_upload_dir();
     $deleted = 0;
@@ -209,9 +209,17 @@ add_action('wp_ajax_octopus_delete_selected_files', 'octopus_handle_delete_files
 add_action('wp_ajax_nopriv_octopus_delete_selected_files', 'octopus_handle_delete_files_ajax');
 
 function octopus_handle_delete_files_ajax() {
-    check_ajax_referer('octopus_delete_selected_files', 'security');
+     if (isset($_POST['delete_security'])) {
+        check_ajax_referer('octopus_delete_selected_files', 'delete_security');
+    } else {
+        if (isset($_POST['delete_security'])) {
+        check_ajax_referer('octopus_delete_selected_files', 'delete_security');
+    } else {
+        check_ajax_referer('octopus_delete_selected_files', 'security');
+    }
+    }
 
-    $files = $_POST['delete_pdfs'] ?? [];
+    $files = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
     $upload_dir = wp_upload_dir();
     $deleted = 0;
 
@@ -235,7 +243,15 @@ add_action('wp_ajax_octopus_mail_selected_xml', 'octopus_handle_mail_selected_xm
 add_action('wp_ajax_nopriv_octopus_mail_selected_xml', 'octopus_handle_mail_selected_xml_ajax');
 
 function octopus_handle_mail_selected_xml_ajax() {
-    check_ajax_referer('octopus_mail_xml_by_selection', 'security');
+    if (isset($_POST['mail_security'])) {
+        check_ajax_referer('octopus_mail_xml_by_selection', 'mail_security');
+    } else {
+        if (isset($_POST['mail_security'])) {
+        check_ajax_referer('octopus_mail_xml_by_selection', 'mail_security');
+    } else {
+        check_ajax_referer('octopus_mail_xml_by_selection', 'security');
+    }
+    }
 
     $files = $_POST['selected_pdfs'] ?? [];
     $email = sanitize_email($_POST['email_to_xml'] ?? '');
@@ -324,7 +340,7 @@ function octopus_delete_selected_files_ajax() {
         wp_send_json_error(['message' => 'Ongeldige nonce']);
     }
 
-    $files = $_POST['delete_pdfs'] ?? [];
+    $files = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
     $upload_dir = wp_upload_dir();
     $deleted = 0;
 

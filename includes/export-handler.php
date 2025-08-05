@@ -184,7 +184,7 @@ add_action('admin_post_octopus_delete_selected_files', function () {
         wp_die('🕵️‍♂️ Spam gedetecteerd.');
     }
 
-    $pdfs = $_POST['delete_pdfs'] ?? [];
+    $pdfs = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
     if (empty($pdfs) || !is_array($pdfs)) {
         wp_redirect(admin_url('admin.php?page=facturatiegenerator&deleted=0'));
         exit;

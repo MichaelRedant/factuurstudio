@@ -122,6 +122,124 @@ class OctopusFacturenWidget extends Widget_Base {
         );
 
         $this->end_controls_section();
+
+         // Acties en formulier
+        $this->start_controls_section(
+            'actions_style',
+            [
+                'label' => __('Acties', 'plugin-name'),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'actions_gap',
+            [
+                'label' => __('Afstand tussen elementen', 'plugin-name'),
+                'type' => Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions' => 'gap: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'input_bg_color',
+            [
+                'label' => __('Input achtergrond', 'plugin-name'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-input' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'input_text_color',
+            [
+                'label' => __('Input tekstkleur', 'plugin-name'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-input' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'input_border',
+                'selector' => '{{WRAPPER}} .octopus-actions .octopus-input',
+            ]
+        );
+
+        $this->add_control(
+            'input_padding',
+            [
+                'label' => __('Input padding', 'plugin-name'),
+                'type' => Controls_Manager::DIMENSIONS,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-input' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_bg_color',
+            [
+                'label' => __('Knop achtergrond', 'plugin-name'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-button' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_text_color',
+            [
+                'label' => __('Knop tekstkleur', 'plugin-name'),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-button' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'button_border',
+                'selector' => '{{WRAPPER}} .octopus-actions .octopus-button',
+            ]
+        );
+
+        $this->add_control(
+            'button_padding',
+            [
+                'label' => __('Knop padding', 'plugin-name'),
+                'type' => Controls_Manager::DIMENSIONS,
+                'selectors' => [
+                    '{{WRAPPER}} .octopus-actions .octopus-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'actions_typography',
+                'selector' => '{{WRAPPER}} .octopus-actions .octopus-input, {{WRAPPER}} .octopus-actions .octopus-button',
+            ]
+        );
+
+        $this->end_controls_section();
     }
 
     protected function render() {
@@ -133,6 +251,17 @@ class OctopusFacturenWidget extends Widget_Base {
     $pdfs = array_merge($verkoop, $aankoop);
 
     echo '<div class="octopus-facturen-wrapper">';
+    echo '<style>
+    .octopus-facturen-wrapper .octopus-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-top:15px;}
+    .octopus-facturen-wrapper .octopus-email{flex:1 1 250px;display:flex;flex-direction:column;}
+    .octopus-facturen-wrapper .octopus-label{margin-bottom:4px;font-weight:600;}
+    .octopus-facturen-wrapper .octopus-input{padding:8px 12px;border:1px solid #ccc;border-radius:4px;width:100%;}
+    .octopus-facturen-wrapper .octopus-button{padding:8px 16px;border:none;border-radius:4px;cursor:pointer;}
+    .octopus-facturen-wrapper .octopus-button.octopus-delete{background:#e74c3c;color:#fff;}
+    .octopus-facturen-wrapper .octopus-button.octopus-send{background:#3498db;color:#fff;}
+    .octopus-facturen-wrapper .octopus-button:disabled{opacity:0.6;cursor:not-allowed;}
+    .octopus-facturen-wrapper .octopus-feedback{flex-basis:100%;margin-top:5px;}
+    </style>';
     echo '<p>' . esc_html($this->get_settings('intro_text')) . '</p>';
 
     if (empty($pdfs)) {
@@ -142,7 +271,8 @@ class OctopusFacturenWidget extends Widget_Base {
     }
 
     echo '<form method="post" class="octopus-delete-form">';
-    echo '<input type="hidden" name="security" value="' . esc_attr(wp_create_nonce('octopus_delete_selected_files')) . '">';
+    echo '<input type="hidden" name="delete_security" value="' . esc_attr(wp_create_nonce('octopus_delete_selected_files')) . '">';
+    echo '<input type="hidden" name="mail_security" value="' . esc_attr(wp_create_nonce('octopus_mail_xml_by_selection')) . '">';
 
     echo <<<HTML
     <div style="margin-bottom: 15px;">
@@ -180,7 +310,7 @@ HTML;
         }
 
         echo '<tr data-type="' . esc_attr($type) . '">';
-        echo '<td><input type="checkbox" name="delete_pdfs[]" value="' . esc_attr($filename) . '"></td>';
+        echo '<td><input type="checkbox" name="selected_pdfs[]" value="' . esc_attr($filename) . '"></td>';
         echo '<td><a href="' . esc_url($url) . '" target="_blank">' . esc_html($filename) . '</a></td>';
         echo '<td>' . $klant . '</td>';
         echo '<td>' . $leverancier . '</td>';
@@ -190,9 +320,14 @@ HTML;
 
     echo '</tbody></table>';
 
-    echo '<div style="margin-top: 15px;">';
-    echo '<button type="submit" class="octopus-button">🗑️ Verwijder geselecteerde facturen</button>';
-    echo '<div class="octopus-feedback" style="margin-top:10px;"></div>';
+    echo '<div class="octopus-actions">';
+    echo '<div class="octopus-email">';
+    echo '<label for="email_to_xml" class="octopus-label">E-mailadres ontvanger</label>';
+    echo '<input type="email" name="email_to_xml" id="email_to_xml" class="octopus-input" placeholder="naam@voorbeeld.com" required>';
+    echo '</div>';
+    echo '<button type="submit" class="octopus-button octopus-delete">🗑️ Verwijder geselecteerde facturen</button>';
+    echo '<button type="button" id="send_xml_btn" class="octopus-button octopus-send">📤 Verstuur geselecteerde XML</button>';
+    echo '<div class="octopus-feedback"></div>';
     echo '</div>';
 
     echo '<div id="pagination" style="margin-top: 15px;"></div>';
@@ -207,7 +342,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.octopus-delete-form');
     const master = document.getElementById('select_all_facturen');
     const feedback = form.querySelector('.octopus-feedback');
-    const button = form.querySelector('button[type="submit"]');
+    const deleteBtn = form.querySelector('button[type="submit"]');
+    const sendBtn = document.getElementById('send_xml_btn');
+    const emailInput = document.getElementById('email_to_xml');
     const rowsPerPage = 20;
     let currentPage = 1;
     let activeFilter = "alle";
@@ -270,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Alles selecteren
     if (master) {
         master.addEventListener('change', function () {
-            form.querySelectorAll('input[type="checkbox"][name="delete_pdfs[]"]').forEach(cb => {
+            form.querySelectorAll('input[type="checkbox"][name="selected_pdfs[]"]').forEach(cb => {
                 cb.checked = master.checked;
             });
         });
@@ -284,8 +421,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData(form);
         formData.append('action', 'octopus_delete_selected_files');
 
-        button.disabled = true;
-        button.textContent = 'Even bezig...';
+        deleteBtn.disabled = true;
+        deleteBtn.textContent = 'Even bezig...';
 
         fetch("{$this->get_ajax_url()}", {
             method: 'POST',
@@ -305,10 +442,53 @@ document.addEventListener('DOMContentLoaded', function () {
             feedback.innerHTML = '<span style="color:red;">⚠️ Fout bij verbinden met server.</span>';
         })
         .finally(() => {
-            button.disabled = false;
-            button.textContent = '🗑️ Verwijder geselecteerde facturen';
+            deleteBtn.disabled = false;
+            deleteBtn.textContent = '🗑️ Verwijder geselecteerde facturen';
         });
     });
+
+    // AJAX versturen
+    if (sendBtn) {
+        sendBtn.addEventListener('click', function () {
+            const checked = form.querySelectorAll('input[name="selected_pdfs[]"]:checked');
+            if (checked.length === 0) {
+                alert('Selecteer minstens één factuur.');
+                return;
+            }
+            if (!emailInput.value) {
+                alert('Vul een e-mailadres in.');
+                return;
+            }
+
+            const formData = new FormData(form);
+            formData.append('action', 'octopus_mail_selected_xml');
+
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Bezig met verzenden...';
+
+            fetch("{$this->get_ajax_url()}", {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    feedback.innerHTML = '<span style="color:green;">✅ ' + data.data.sent + ' XML-bestand(en) verzonden.</span>';
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    feedback.innerHTML = '<span style="color:red;">❌ ' + (data.data.message || 'Versturen mislukt.') + '</span>';
+                }
+            })
+            .catch(() => {
+                feedback.innerHTML = '<span style="color:red;">⚠️ Er ging iets mis bij het verzenden.</span>';
+            })
+            .finally(() => {
+                sendBtn.disabled = false;
+                sendBtn.textContent = '📤 Verstuur geselecteerde XML';
+            });
+        });
+    }
 
     paginate(1);
 });
