@@ -14,6 +14,7 @@ class FactuurGenerator
     private $datum_van;
     private $datum_tot;
     private $branche;
+    private $user_id;
 
 
     public function __construct($post_data)
@@ -35,6 +36,10 @@ class FactuurGenerator
         $this->datum_van = !empty($post_data['date_from']) ? strtotime($post_data['date_from']) : strtotime('-30 days');
         $this->datum_tot = !empty($post_data['date_to']) ? strtotime($post_data['date_to']) : time();
         $this->branche = sanitize_text_field($post_data['branche'] ?? '');
+        $this->user_id = sanitize_text_field($post_data['user_id'] ?? '');
+        if (empty($this->user_id)) {
+            $this->user_id = wp_generate_uuid4();
+        }
 
     }
 
@@ -59,7 +64,7 @@ class FactuurGenerator
     private function generate_for_type($type)
     {
         $upload_dir = wp_upload_dir();
-        $base_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
+        $base_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$this->user_id}/{$type}/";
 
         if (!wp_mkdir_p($base_path)) {
             return "❌ Kan map '$base_path' niet aanmaken.";
@@ -114,7 +119,7 @@ $meta = [
     'leverancier' => $data['leverancier']['naam'],
     'datum' => $data['datum'],
 ];
-file_put_contents($base_path . $data['factuurnummer'] . '.json', json_encode($meta));
+            file_put_contents($base_path . $data['factuurnummer'] . '.json', json_encode($meta));
         }
 
         return true;
@@ -126,10 +131,10 @@ file_put_contents($base_path . $data['factuurnummer'] . '.json', json_encode($me
     }
 
     private function cleanup_old_files() {
-    $upload_dir = wp_upload_dir();
+        $upload_dir = wp_upload_dir();
 
     foreach (['verkoop', 'aankoop'] as $type) {
-        $dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
+        $dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$this->user_id}/{$type}/";
         if (!file_exists($dir)) continue;
 
         foreach (glob($dir . '*.{pdf,xml,json}', GLOB_BRACE) as $file) {

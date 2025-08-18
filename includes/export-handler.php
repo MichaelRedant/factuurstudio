@@ -9,6 +9,7 @@ add_action('admin_post_octopus_download_zip', function () {
     }
 
     $type = sanitize_text_field($_GET['type'] ?? 'verkoop');
+    $user_id = sanitize_text_field($_GET['uid'] ?? '');
     $allowed = ['verkoop', 'aankoop'];
     if (!in_array($type, $allowed)) {
         wp_die('⛔ Ongeldig type');
@@ -17,8 +18,8 @@ add_action('admin_post_octopus_download_zip', function () {
     require_once plugin_dir_path(__FILE__) . '/Exporter.php';
 
     $upload_dir = wp_upload_dir();
-    $batch_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
-    $zip_file = trailingslashit($upload_dir['basedir']) . "octopus-invoices/facturen-batch-{$type}.zip";
+    $batch_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+    $zip_file = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/facturen-batch-{$type}.zip";
 
     // Check of er iets is
     $files = glob($batch_dir . '*.{pdf,xml}', GLOB_BRACE);
@@ -63,6 +64,7 @@ add_action('admin_post_octopus_mail_zip', function () {
 
     $email = sanitize_email($_POST['email_to'] ?? '');
     $types = array_map('sanitize_text_field', $_POST['invoice_types'] ?? []);
+    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
 
     if (!is_email($email) || empty($types)) {
         wp_redirect(admin_url('admin.php?page=facturatiegenerator&mail_error=invalid_input'));
@@ -75,15 +77,15 @@ add_action('admin_post_octopus_mail_zip', function () {
     $linked_files = [];
 
     foreach ($types as $type) {
-        $batch_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
-        $zip_file = trailingslashit($upload_dir['basedir']) . "octopus-invoices/facturen-{$type}.zip";
+        $batch_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+        $zip_file = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/facturen-{$type}.zip";
 
         $files = glob($batch_dir . '*.{pdf,xml}', GLOB_BRACE);
         if (empty($files)) continue;
 
         if (!Exporter::zip_last_batch($batch_dir, $zip_file)) continue;
 
-        $url = $upload_dir['baseurl'] . "/octopus-invoices/facturen-{$type}.zip";
+        $url = $upload_dir['baseurl'] . "/octopus-invoices/{$user_id}/facturen-{$type}.zip";
         $generated_links[] = "- " . ucfirst($type) . ": $url";
         $linked_files[] = basename($zip_file);
     }
@@ -126,6 +128,7 @@ add_action('admin_post_octopus_mail_selected_xml', function () {
 
     $email = sanitize_email($_POST['email_to_xml'] ?? '');
     $selected = $_POST['selected_pdfs'] ?? [];
+    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
 
     if (!is_email($email) || empty($selected)) {
         wp_redirect(admin_url('admin.php?page=facturatiegenerator&mail_error=invalid_selection'));
@@ -140,7 +143,7 @@ add_action('admin_post_octopus_mail_selected_xml', function () {
         $factuurnummer = basename(sanitize_file_name($pdf_file), '.pdf');
 
         foreach (['verkoop', 'aankoop'] as $type) {
-            $xml_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/{$factuurnummer}.xml";
+            $xml_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/{$factuurnummer}.xml";
             if (!file_exists($xml_path)) continue;
 
             $subject = "XML-factuur: {$factuurnummer}.xml";
@@ -185,6 +188,7 @@ add_action('admin_post_octopus_delete_selected_files', function () {
     }
 
     $pdfs = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
+    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
     if (empty($pdfs) || !is_array($pdfs)) {
         wp_redirect(admin_url('admin.php?page=facturatiegenerator&deleted=0'));
         exit;
@@ -197,7 +201,7 @@ add_action('admin_post_octopus_delete_selected_files', function () {
         $filename = basename(sanitize_file_name($filename));
 
         foreach (['verkoop', 'aankoop'] as $type) {
-            $dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
+            $dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
             $pdf_path = $dir . $filename;
             $xml_path = preg_replace('/\.pdf$/', '.xml', $pdf_path);
 

@@ -150,9 +150,10 @@ class OctopusDownloadZipsWidget extends Widget_Base {
     protected function render() {
     $settings = $this->get_settings_for_display();
     $upload_dir = wp_upload_dir();
+    $user_id = sanitize_text_field($_GET['user_id'] ?? '');
 
-    $verkoop_files = glob($upload_dir['basedir'] . '/octopus-invoices/verkoop/*.{pdf,xml}', GLOB_BRACE);
-    $aankoop_files = glob($upload_dir['basedir'] . '/octopus-invoices/aankoop/*.{pdf,xml}', GLOB_BRACE);
+    $verkoop_files = glob($upload_dir['basedir'] . "/octopus-invoices/{$user_id}/verkoop/*.{pdf,xml}", GLOB_BRACE);
+    $aankoop_files = glob($upload_dir['basedir'] . "/octopus-invoices/{$user_id}/aankoop/*.{pdf,xml}", GLOB_BRACE);
 
     echo '<div class="octopus-download-wrapper">';
     echo '<p>' . esc_html($settings['beschrijving']) . '</p>';
@@ -175,6 +176,19 @@ class OctopusDownloadZipsWidget extends Widget_Base {
     echo <<<EOT
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    let uid = localStorage.getItem('octopus_uid');
+    if (!uid) {
+        uid = 'u' + Math.random().toString(36).substring(2,10);
+        localStorage.setItem('octopus_uid', uid);
+    }
+    const loc = new URL(window.location);
+    if (!loc.searchParams.get('user_id')) {
+        loc.searchParams.set('user_id', uid);
+        window.location.replace(loc);
+        return;
+    }
+    const userId = loc.searchParams.get('user_id');
+
     const buttons = document.querySelectorAll('.octopus-download-buttons .octopus-button');
     const feedback = document.querySelector('.octopus-feedback');
 
@@ -183,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const type = this.getAttribute('data-type');
             feedback.innerHTML = '⏳ ZIP wordt aangemaakt...';
 
-            fetch('{$this->get_ajax_url()}?action=octopus_download_zip_ajax&type=' + type)
+            fetch('{$this->get_ajax_url()}?action=octopus_download_zip_ajax&type=' + type + '&uid=' + userId)
             .then(response => {
                 if (!response.ok) throw new Error('Fout bij downloaden');
                 return response.blob();
