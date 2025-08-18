@@ -49,8 +49,9 @@ class OctopusVerstuurXmlWidget extends Widget_Base {
     }
 
     $upload_dir = wp_upload_dir();
-    $verkoop_dir = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/verkoop/';
-    $aankoop_dir = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/aankoop/';
+    $user_id = sanitize_text_field($_GET['user_id'] ?? '');
+    $verkoop_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/verkoop/";
+    $aankoop_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/aankoop/";
     $pdfs = array_merge(
         glob($verkoop_dir . '*.pdf') ?: [],
         glob($aankoop_dir . '*.pdf') ?: []
@@ -67,6 +68,7 @@ class OctopusVerstuurXmlWidget extends Widget_Base {
 
     echo '<form method="post" class="octopus-verstuur-form">';
     echo '<input type="hidden" name="security" value="' . esc_attr(wp_create_nonce('octopus_mail_xml_by_selection')) . '">';
+    echo '<input type="hidden" name="user_id" value="' . esc_attr($user_id) . '">';
 
     echo '<label style="display:block; margin-bottom:10px;">';
     echo '<input type="checkbox" id="select_all_xml"> <strong>Alles selecteren</strong>';
@@ -96,6 +98,19 @@ class OctopusVerstuurXmlWidget extends Widget_Base {
     echo <<<EOT
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    let uid = localStorage.getItem('octopus_uid');
+    if (!uid) {
+        uid = 'u' + Math.random().toString(36).substring(2,10);
+        localStorage.setItem('octopus_uid', uid);
+    }
+    const loc = new URL(window.location);
+    if (!loc.searchParams.get('user_id')) {
+        loc.searchParams.set('user_id', uid);
+        window.location.replace(loc);
+        return;
+    }
+    const userId = loc.searchParams.get('user_id');
+
     const form = document.querySelector('.octopus-verstuur-form');
     const master = document.getElementById('select_all_xml');
     const checkboxes = form.querySelectorAll('input[type="checkbox"][name="selected_pdfs[]"]');
@@ -113,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(form);
         formData.append('action', 'octopus_mail_selected_xml');
+        formData.append('user_id', userId);
 
         button.disabled = true;
         button.textContent = 'Bezig met verzenden...';
