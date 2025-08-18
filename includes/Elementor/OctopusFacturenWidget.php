@@ -244,13 +244,8 @@ class OctopusFacturenWidget extends Widget_Base {
 
     protected function render() {
     $upload_dir = wp_upload_dir();
-    $user_id = sanitize_text_field($_GET['user_id'] ?? '');
-    if (empty($user_id)) {
-        echo '<div class="octopus-facturen-wrapper"><p><em>Geen gebruiker gevonden.</em></p></div>';
-        return;
-    }
-    $verkoop_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/verkoop/";
-    $aankoop_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/aankoop/";
+    $verkoop_dir = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/verkoop/';
+    $aankoop_dir = trailingslashit($upload_dir['basedir']) . 'octopus-invoices/aankoop/';
     $verkoop = glob($verkoop_dir . '*.pdf') ?: [];
     $aankoop = glob($aankoop_dir . '*.pdf') ?: [];
     $pdfs = array_merge($verkoop, $aankoop);
@@ -278,7 +273,6 @@ class OctopusFacturenWidget extends Widget_Base {
     echo '<form method="post" class="octopus-delete-form">';
     echo '<input type="hidden" name="delete_security" value="' . esc_attr(wp_create_nonce('octopus_delete_selected_files')) . '">';
     echo '<input type="hidden" name="mail_security" value="' . esc_attr(wp_create_nonce('octopus_mail_xml_by_selection')) . '">';
-    echo '<input type="hidden" name="user_id" value="' . esc_attr($user_id) . '">';
 
     echo <<<HTML
     <div style="margin-bottom: 15px;">
@@ -306,7 +300,7 @@ HTML;
         $type = strpos($pdf_path, '/verkoop/') !== false ? 'verkoop' : 'aankoop';
         $url = str_replace($upload_dir['basedir'], $upload_dir['baseurl'], $pdf_path);
 
-        $json_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/{$base}.json";
+        $json_path = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/{$base}.json";
         $klant = $leverancier = $datum = 'Onbekend';
         if (file_exists($json_path)) {
             $json = json_decode(file_get_contents($json_path), true);
@@ -344,19 +338,6 @@ HTML;
     echo <<<EOT
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    let uid = localStorage.getItem('octopus_uid');
-    if (!uid) {
-        uid = 'u' + Math.random().toString(36).substring(2,10);
-        localStorage.setItem('octopus_uid', uid);
-    }
-    const loc = new URL(window.location);
-    if (!loc.searchParams.get('user_id')) {
-        loc.searchParams.set('user_id', uid);
-        window.location.replace(loc);
-        return;
-    }
-    const userId = loc.searchParams.get('user_id');
-
     const table = document.getElementById("facturenTable");
     const rows = table.querySelectorAll("tbody tr");
     const form = document.querySelector('.octopus-delete-form');
@@ -440,7 +421,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(form);
         formData.append('action', 'octopus_delete_selected_files');
-        formData.append('user_id', userId);
 
         deleteBtn.disabled = true;
         deleteBtn.textContent = 'Even bezig...';
@@ -483,7 +463,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(form);
             formData.append('action', 'octopus_mail_selected_xml');
-            formData.append('user_id', userId);
 
             sendBtn.disabled = true;
             sendBtn.textContent = 'Bezig met verzenden...';

@@ -253,7 +253,6 @@ if (file_exists($branches_path)) {
     echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '" class="octopus-generate-form">';
     echo '<input type="hidden" name="action" value="octopus_generate_facturen_frontend">';
     wp_nonce_field('octopus_generate_invoices');
-    echo '<input type="hidden" name="user_id" id="octopus-user-id">';
 
    echo '<div class="octopus-field-full octopus-checks">';
     echo '<label><input type="checkbox" name="simulate_verkoop" value="1"> Verkoopfacturen</label>';
@@ -315,18 +314,6 @@ if (file_exists($branches_path)) {
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let uid = localStorage.getItem('octopus_uid');
-            if (!uid) {
-                uid = 'u' + Math.random().toString(36).substring(2,10);
-                localStorage.setItem('octopus_uid', uid);
-            }
-            const url = new URL(window.location);
-            if (!url.searchParams.get('user_id')) {
-                url.searchParams.set('user_id', uid);
-                window.location.replace(url);
-                return;
-            }
-            document.getElementById('octopus-user-id').value = url.searchParams.get('user_id');
             setTimeout(() => {
                 document.querySelectorAll('.octopus-dismissible').forEach(el => {
                     el.style.opacity = '0';

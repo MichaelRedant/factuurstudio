@@ -173,9 +173,6 @@ function octopus_handle_mail_selected_xml() {
 
     $files = $_POST['selected_pdfs'] ?? [];
     $email = sanitize_email($_POST['email_to_xml'] ?? '');
-    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
-    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
-    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
     $redirect = isset($_POST['redirect_to']) ? esc_url_raw($_POST['redirect_to']) : wp_get_referer();
 
     if (empty($files) || empty($email)) {
@@ -188,7 +185,7 @@ function octopus_handle_mail_selected_xml() {
 
     foreach ($files as $filename) {
         $type = strpos($filename, 'V') === 0 ? 'verkoop' : 'aankoop';
-        $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+        $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
         $xml_path = $base . basename($filename, '.pdf') . '.xml';
 
         if (!file_exists($xml_path)) continue;
@@ -258,7 +255,6 @@ function octopus_handle_mail_selected_xml_ajax() {
 
     $files = $_POST['selected_pdfs'] ?? [];
     $email = sanitize_email($_POST['email_to_xml'] ?? '');
-    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
 
     if (empty($files) || empty($email)) {
         wp_send_json_error(['message' => 'Geen bestanden of e-mailadres opgegeven.']);
@@ -270,7 +266,7 @@ function octopus_handle_mail_selected_xml_ajax() {
 
     foreach ($files as $filename) {
         $type = strpos($filename, 'V') === 0 ? 'verkoop' : 'aankoop';
-        $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+        $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
         $xml_path = $base . basename($filename, '.pdf') . '.xml';
 
         if (!file_exists($xml_path)) continue;
@@ -303,13 +299,12 @@ add_action('wp_ajax_nopriv_octopus_download_zip_ajax', 'octopus_download_zip_aja
 
 function octopus_download_zip_ajax() {
     $type = $_GET['type'] ?? '';
-    $user_id = sanitize_text_field($_GET['uid'] ?? '');
     if (!in_array($type, ['verkoop', 'aankoop'])) {
         wp_die('Ongeldig type');
     }
 
     $upload_dir = wp_upload_dir();
-    $base_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+    $base_dir = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
     $files = glob($base_dir . '*.{pdf,xml}', GLOB_BRACE);
 
     if (empty($files)) {
@@ -346,13 +341,12 @@ function octopus_delete_selected_files_ajax() {
     }
 
     $files = $_POST['selected_pdfs'] ?? $_POST['delete_pdfs'] ?? [];
-    $user_id = sanitize_text_field($_POST['user_id'] ?? '');
     $upload_dir = wp_upload_dir();
     $deleted = 0;
 
     foreach ($files as $filename) {
         foreach (['verkoop', 'aankoop'] as $type) {
-            $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$user_id}/{$type}/";
+            $base = trailingslashit($upload_dir['basedir']) . "octopus-invoices/{$type}/";
             foreach (['pdf', 'xml', 'json'] as $ext) {
                 $path = $base . basename($filename, '.pdf') . '.' . $ext;
                 if (file_exists($path)) {
