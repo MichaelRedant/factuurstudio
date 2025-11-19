@@ -11,6 +11,7 @@ defined('ABSPATH') or die('No script kiddies please!');
 require_once plugin_dir_path(__FILE__) . 'includes/FactuurGenerator.php';
 require_once plugin_dir_path(__FILE__) . 'includes/UBLGenerator.php';
 require_once plugin_dir_path(__FILE__) . 'includes/export-handler.php';
+require_once plugin_dir_path(__FILE__) . 'includes/i18n.php';
 
 // Admin menu
 // Admin menu
@@ -102,6 +103,53 @@ add_action('elementor/frontend/after_enqueue_styles', function () {
         [],
         '1.0.0'
     );
+});
+
+// Front-end FR output filter when URL contains /fr/
+add_action('template_redirect', function () {
+    if (!function_exists('octo_is_fr_locale') || !octo_is_fr_locale()) return;
+    ob_start(function ($html) {
+        $map = [
+            'Genereer Facturen' => 'Générer des factures',
+            'Simuleer hier verkoop- of aankoopfacturen' => 'Simulez ici des factures de vente ou d\'achat',
+            'Verkoopfacturen' => 'Factures de vente',
+            'Aankoopfacturen' => 'Factures d\'achat',
+            'Aantal per type:' => 'Nombre par type :',
+            'Datum bereik:' => 'Plage de dates :',
+            'tot' => 'à',
+            'Klant- of Leveranciersgegevens' => 'Données client ou fournisseur',
+            'Branche:' => 'Branche :',
+            '-- Kies een branche --' => '-- Choisissez une branche --',
+            'Naam:' => 'Nom :',
+            'Adres:' => 'Adresse :',
+            'BTW-nummer:' => 'Numéro de TVA :',
+            'Start genereren' => 'Démarrer la génération',
+            'Genereer zonder klantgegevens' => 'Générer sans données client',
+            'Soort facturen' => 'Type de factures',
+            'Extra opties' => 'Options supplémentaires',
+            'Bedrijfsnaam' => 'Nom de l\'entreprise',
+            'Branche' => 'Branche',
+            'Er zijn nog geen facturen gegenereerd.' => 'Aucune facture n\'a encore été générée.',
+            'Factuur' => 'Facture',
+            'Klant' => 'Client',
+            'Leverancier' => 'Fournisseur',
+            'Datum' => 'Date',
+            'Onbekend' => 'Inconnu',
+            'ZIP-download van facturen' => 'Téléchargement ZIP des factures',
+            'Download Verkoopfacturen (ZIP)' => 'Télécharger factures de vente (ZIP)',
+            'Download Aankoopfacturen (ZIP)' => 'Télécharger factures d\'achat (ZIP)',
+            'Geen bestanden gevonden om te downloaden.' => 'Aucun fichier trouvé à télécharger.',
+            'Selecteer facturen om XML te verzenden' => 'Sélectionnez des factures à envoyer en XML',
+            'Ontvanger (bv. U12345678@in.octopus.be):' => 'Destinataire (ex. U12345678@in.octopus.be) :',
+            'Verstuur geselecteerde XML-bestanden' => 'Envoyer les fichiers XML sélectionnés',
+            'Geen facturen beschikbaar.' => 'Aucune facture disponible.',
+            'Selecteer facturen om te verwijderen' => 'Sélectionnez des factures à supprimer',
+            'Verwijder geselecteerde facturen' => 'Supprimer les factures sélectionnées',
+            'Geen facturen gevonden om te verwijderen.' => 'Aucune facture à supprimer.',
+            'Ben je zeker dat je deze facturen wil verwijderen?' => 'Êtes-vous sûr de vouloir supprimer ces factures ?',
+        ];
+        return str_replace(array_keys($map), array_values($map), $html);
+    });
 });
 
 

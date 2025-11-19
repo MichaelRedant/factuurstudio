@@ -1,6 +1,7 @@
 <?php
 
 require_once plugin_dir_path(__DIR__) . 'includes/PDFGenerator.php';
+require_once plugin_dir_path(__DIR__) . 'includes/PDFGeneratorI18n.php';
 require_once plugin_dir_path(__DIR__) . 'includes/UBLGenerator.php';
 require_once plugin_dir_path(__DIR__) . 'includes/FactuurDataGenerator.php';
 
@@ -73,18 +74,22 @@ $factuurnummer = $prefix . '-' . $unique_id;
 
             $factuurdatum = $this->genereer_datum_in_range();
 
+            // Kies taal per factuur (NL/FR) vóór we data genereren
+            $lang = (rand(0, 1) === 1) ? 'fr' : 'nl';
+
             $data = FactuurDataGenerator::generate(
     $factuurnummer,
     $type,
     $factuurdatum,
     $this->anoniem ? null : $this->custom_gegevens,
-    $this->branche
+    $this->branche,
+    $lang
 );
 
             $pdf_path = $base_path . $data['factuurnummer'] . '.pdf';
 
-            // PDF
-            PDFGenerator::generate_pdf(
+            // Genereer PDF met i18n in gekozen taal
+            PDFGeneratorI18n::generate_pdf(
                 $data['factuurnummer'],
                 $data['type'],
                 $data['klant'],
@@ -92,7 +97,8 @@ $factuurnummer = $prefix . '-' . $unique_id;
                 $data['regels'],
                 $data['btw'],
                 $data['totaal'],
-                $data['datum']
+                $data['datum'],
+                $lang
             );
 
             // UBL

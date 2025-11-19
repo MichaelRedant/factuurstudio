@@ -1,502 +1,145 @@
 {
   "Marketing": [
-    {
-      "omschrijving": "Social media campagne",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "SEO optimalisatie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Nieuwsbriefontwerp",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Retargetingcampagne",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Contentcreatie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Performance marketing rapport",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "E-mailcampagne",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Google Ads Setup",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Brandingstrategie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Online community management",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Influencer samenwerking",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Video-advertentieproductie",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Social media campagne", "omschrijving_fr": "Campagne sur les réseaux sociaux", "vat_rate": 21},
+    {"omschrijving": "SEO optimalisatie", "omschrijving_fr": "Optimisation SEO", "vat_rate": 21},
+    {"omschrijving": "Nieuwsbriefontwerp", "omschrijving_fr": "Conception de newsletter", "vat_rate": 21},
+    {"omschrijving": "Retargetingcampagne", "omschrijving_fr": "Campagne de retargeting", "vat_rate": 21},
+    {"omschrijving": "Contentcreatie", "omschrijving_fr": "Création de contenu", "vat_rate": 21},
+    {"omschrijving": "Performance marketing rapport", "omschrijving_fr": "Rapport de performance marketing", "vat_rate": 21},
+    {"omschrijving": "E-mailcampagne", "omschrijving_fr": "Campagne e-mail", "vat_rate": 21},
+    {"omschrijving": "Google Ads Setup", "omschrijving_fr": "Configuration Google Ads", "vat_rate": 21},
+    {"omschrijving": "Brandingstrategie", "omschrijving_fr": "Stratégie de branding", "vat_rate": 21},
+    {"omschrijving": "Online community management", "omschrijving_fr": "Gestion de communauté en ligne", "vat_rate": 21},
+    {"omschrijving": "Influencer samenwerking", "omschrijving_fr": "Collaboration avec influenceurs", "vat_rate": 21},
+    {"omschrijving": "Video-advertentieproductie", "omschrijving_fr": "Production de publicité vidéo", "vat_rate": 21}
   ],
   "IT & Software": [
-    {
-      "omschrijving": "Consultancy-uren",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "API-koppeling met ERP",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Licentiekost softwarepakket",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "CRM-integratie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Digitale advertentiecampagne",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Remote installatie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Tijdregistratiesysteem",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "IT-supportuur",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Cloudopslagpakket",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Systeemanalyse",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Functionaliteitsuitbreiding",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Batchverwerking data",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Consultancy-uren", "omschrijving_fr": "Heures de consultance", "vat_rate": 21},
+    {"omschrijving": "API-koppeling met ERP", "omschrijving_fr": "Intégration API avec ERP", "vat_rate": 21},
+    {"omschrijving": "Licentiekost softwarepakket", "omschrijving_fr": "Coût de licence logiciel", "vat_rate": 21},
+    {"omschrijving": "CRM-integratie", "omschrijving_fr": "Intégration CRM", "vat_rate": 21},
+    {"omschrijving": "Digitale advertentiecampagne", "omschrijving_fr": "Campagne publicitaire digitale", "vat_rate": 21},
+    {"omschrijving": "Remote installatie", "omschrijving_fr": "Installation à distance", "vat_rate": 21},
+    {"omschrijving": "Tijdregistratiesysteem", "omschrijving_fr": "Système d’enregistrement du temps", "vat_rate": 21},
+    {"omschrijving": "IT-supportuur", "omschrijving_fr": "Heure de support IT", "vat_rate": 21},
+    {"omschrijving": "Cloudopslagpakket", "omschrijving_fr": "Forfait de stockage cloud", "vat_rate": 21},
+    {"omschrijving": "Systeemanalyse", "omschrijving_fr": "Analyse du système", "vat_rate": 21},
+    {"omschrijving": "Functionaliteitsuitbreiding", "omschrijving_fr": "Extension de fonctionnalités", "vat_rate": 21},
+    {"omschrijving": "Batchverwerking data", "omschrijving_fr": "Traitement de données par lots", "vat_rate": 21}
   ],
   "Design & Drukwerk": [
-    {
-      "omschrijving": "Logo-ontwerp",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Flyerontwerp",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Design huisstijl",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Visitekaartjes 500st",
-      "vat_rate": 6
-    },
-    {
-      "omschrijving": "Drukwerk brochures",
-      "vat_rate": 6
-    },
-    {
-      "omschrijving": "Posterdesign",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Bannerontwerp",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Social media templates",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Productverpakking ontwerp",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Grafisch ontwerpuur",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "DTP-opmaak",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Boek lay-out voor drukwerk",
-      "vat_rate": 6
-    }
+    {"omschrijving": "Logo-ontwerp", "omschrijving_fr": "Conception de logo", "vat_rate": 21},
+    {"omschrijving": "Flyerontwerp", "omschrijving_fr": "Conception de flyer", "vat_rate": 21},
+    {"omschrijving": "Design huisstijl", "omschrijving_fr": "Conception d'identité visuelle", "vat_rate": 21},
+    {"omschrijving": "Visitekaartjes 500st", "omschrijving_fr": "Cartes de visite 500 pcs", "vat_rate": 6},
+    {"omschrijving": "Drukwerk brochures", "omschrijving_fr": "Impression de brochures", "vat_rate": 6},
+    {"omschrijving": "Posterdesign", "omschrijving_fr": "Conception d'affiche", "vat_rate": 21},
+    {"omschrijving": "Bannerontwerp", "omschrijving_fr": "Conception de bannière", "vat_rate": 21},
+    {"omschrijving": "Social media templates", "omschrijving_fr": "Modèles pour réseaux sociaux", "vat_rate": 21},
+    {"omschrijving": "Productverpakking ontwerp", "omschrijving_fr": "Conception d'emballage produit", "vat_rate": 21},
+    {"omschrijving": "Grafisch ontwerpuur", "omschrijving_fr": "Heure de conception graphique", "vat_rate": 21},
+    {"omschrijving": "DTP-opmaak", "omschrijving_fr": "Mise en page (PAO)", "vat_rate": 21},
+    {"omschrijving": "Boek lay-out voor drukwerk", "omschrijving_fr": "Mise en page de livre pour impression", "vat_rate": 6}
   ],
   "Training & Opleiding": [
-    {
-      "omschrijving": "Opleiding op locatie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Workshoppakket",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Gebruikerstraining",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Handleidingontwikkeling",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Webinar sessie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Train-the-trainer programma",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "E-learningmodule",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Technische workshop",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Interne opleiding softwaregebruik",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Opleiding op locatie", "omschrijving_fr": "Formation sur site", "vat_rate": 21},
+    {"omschrijving": "Workshoppakket", "omschrijving_fr": "Pack atelier", "vat_rate": 21},
+    {"omschrijving": "Gebruikerstraining", "omschrijving_fr": "Formation utilisateur", "vat_rate": 21},
+    {"omschrijving": "Handleidingontwikkeling", "omschrijving_fr": "Développement de manuel", "vat_rate": 21},
+    {"omschrijving": "Webinar sessie", "omschrijving_fr": "Session de webinaire", "vat_rate": 21},
+    {"omschrijving": "Train-the-trainer programma", "omschrijving_fr": "Programme train the trainer", "vat_rate": 21},
+    {"omschrijving": "E-learningmodule", "omschrijving_fr": "Module e-learning", "vat_rate": 21},
+    {"omschrijving": "Technische workshop", "omschrijving_fr": "Atelier technique", "vat_rate": 21},
+    {"omschrijving": "Interne opleiding softwaregebruik", "omschrijving_fr": "Formation interne à l’utilisation du logiciel", "vat_rate": 21}
   ],
   "Security & Audit": [
-    {
-      "omschrijving": "Beveiligingsaudit",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Camerabeveiliging",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Emailverificatiesysteem",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Auditingdiensten",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Penetratietest",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Firewall-configuratie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "GDPR-compliancecheck",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Netwerksegmentatie-analyse",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Beveiligingsadvies op locatie",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Beveiligingsaudit", "omschrijving_fr": "Audit de sécurité", "vat_rate": 21},
+    {"omschrijving": "Camerabeveiliging", "omschrijving_fr": "Sécurité par caméras", "vat_rate": 21},
+    {"omschrijving": "Emailverificatiesysteem", "omschrijving_fr": "Système de vérification e-mail", "vat_rate": 21},
+    {"omschrijving": "Auditingdiensten", "omschrijving_fr": "Services d’audit", "vat_rate": 21},
+    {"omschrijving": "Penetratietest", "omschrijving_fr": "Test de pénétration", "vat_rate": 21},
+    {"omschrijving": "Firewall-configuratie", "omschrijving_fr": "Configuration de pare-feu", "vat_rate": 21},
+    {"omschrijving": "GDPR-compliancecheck", "omschrijving_fr": "Contrôle de conformité RGPD", "vat_rate": 21},
+    {"omschrijving": "Netwerksegmentatie-analyse", "omschrijving_fr": "Analyse de segmentation réseau", "vat_rate": 21},
+    {"omschrijving": "Beveiligingsadvies op locatie", "omschrijving_fr": "Conseil sécurité sur site", "vat_rate": 21}
   ],
   "Financiën & Boekhouding": [
-    {
-      "omschrijving": "Analyseboekhoudsysteem",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Financiële rapportering",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Opstartkost boekhoudproject",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Facturatiesoftware",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Jaarrekeningvoorbereiding",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Budgetanalyse",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "BTW-aangifte ondersteuning",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Debiteurenbeheer",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kostenstructuurherziening",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Analyseboekhoudsysteem", "omschrijving_fr": "Analyse du système comptable", "vat_rate": 21},
+    {"omschrijving": "Financiële rapportering", "omschrijving_fr": "Reporting financier", "vat_rate": 21},
+    {"omschrijving": "Opstartkost boekhoudproject", "omschrijving_fr": "Coût de démarrage projet comptable", "vat_rate": 21},
+    {"omschrijving": "Facturatiesoftware", "omschrijving_fr": "Logiciel de facturation", "vat_rate": 21},
+    {"omschrijving": "Jaarrekeningvoorbereiding", "omschrijving_fr": "Préparation des comptes annuels", "vat_rate": 21},
+    {"omschrijving": "Budgetanalyse", "omschrijving_fr": "Analyse budgétaire", "vat_rate": 21},
+    {"omschrijving": "BTW-aangifte ondersteuning", "omschrijving_fr": "Support à la déclaration TVA", "vat_rate": 21},
+    {"omschrijving": "Debiteurenbeheer", "omschrijving_fr": "Gestion des débiteurs", "vat_rate": 21},
+    {"omschrijving": "Kostenstructuurherziening", "omschrijving_fr": "Révision de la structure des coûts", "vat_rate": 21}
   ],
   "Consultancy & Strategie": [
-    {
-      "omschrijving": "Businessstrategie sessie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "SWOT-analyse workshop",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Concurrentieanalyse",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Marktonderzoek",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kostenoptimalisatieadvies",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Innovatieworkshop",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Go-to-marketplan",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Prijsstrategie sessie",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Businessstrategie sessie", "omschrijving_fr": "Session de stratégie d’entreprise", "vat_rate": 21},
+    {"omschrijving": "SWOT-analyse workshop", "omschrijving_fr": "Atelier analyse SWOT", "vat_rate": 21},
+    {"omschrijving": "Concurrentieanalyse", "omschrijving_fr": "Analyse de la concurrence", "vat_rate": 21},
+    {"omschrijving": "Marktonderzoek", "omschrijving_fr": "Étude de marché", "vat_rate": 21},
+    {"omschrijving": "Kostenoptimalisatieadvies", "omschrijving_fr": "Conseil en optimisation des coûts", "vat_rate": 21},
+    {"omschrijving": "Innovatieworkshop", "omschrijving_fr": "Atelier innovation", "vat_rate": 21},
+    {"omschrijving": "Go-to-marketplan", "omschrijving_fr": "Plan go-to-market", "vat_rate": 21},
+    {"omschrijving": "Prijsstrategie sessie", "omschrijving_fr": "Session de stratégie de prix", "vat_rate": 21}
   ],
   "Legal & Compliance": [
-    {
-      "omschrijving": "Contractscreening",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Opstellen algemene voorwaarden",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Privacybeleid op maat",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Legal audit",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Compliance-rapport",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Begeleiding GDPR-implementatie",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Herstructureringsadvies",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Licentiecontrole",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Contractscreening", "omschrijving_fr": "Relecture de contrats", "vat_rate": 21},
+    {"omschrijving": "Opstellen algemene voorwaarden", "omschrijving_fr": "Rédaction de conditions générales", "vat_rate": 21},
+    {"omschrijving": "Privacybeleid op maat", "omschrijving_fr": "Politique de confidentialité sur mesure", "vat_rate": 21},
+    {"omschrijving": "Legal audit", "omschrijving_fr": "Audit juridique", "vat_rate": 21},
+    {"omschrijving": "Compliance-rapport", "omschrijving_fr": "Rapport de conformité", "vat_rate": 21},
+    {"omschrijving": "Begeleiding GDPR-implementatie", "omschrijving_fr": "Accompagnement mise en œuvre RGPD", "vat_rate": 21},
+    {"omschrijving": "Herstructureringsadvies", "omschrijving_fr": "Conseil en restructuration", "vat_rate": 21},
+    {"omschrijving": "Licentiecontrole", "omschrijving_fr": "Contrôle de licences", "vat_rate": 21}
   ],
   "Retail & Verkoop": [
-    {
-      "omschrijving": "Kassa POS-systeem",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Barcode scanners",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Productdisplays",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Papieren draagtassen",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Reklabels",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Retailverpakkingen",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Betaalterminals",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Voorraadkast groot",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kledingrekken",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Winkelinterieurkit",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Kassa POS-systeem", "omschrijving_fr": "Système de caisse POS", "vat_rate": 21},
+    {"omschrijving": "Barcode scanners", "omschrijving_fr": "Scanners de codes-barres", "vat_rate": 21},
+    {"omschrijving": "Productdisplays", "omschrijving_fr": "Présentoirs produits", "vat_rate": 21},
+    {"omschrijving": "Papieren draagtassen", "omschrijving_fr": "Sacs en papier", "vat_rate": 21},
+    {"omschrijving": "Reklabels", "omschrijving_fr": "Étiquettes de rayonnage", "vat_rate": 21},
+    {"omschrijving": "Retailverpakkingen", "omschrijving_fr": "Emballages de vente au détail", "vat_rate": 21},
+    {"omschrijving": "Betaalterminals", "omschrijving_fr": "Terminaux de paiement", "vat_rate": 21},
+    {"omschrijving": "Voorraadkast groot", "omschrijving_fr": "Grande armoire de stockage", "vat_rate": 21},
+    {"omschrijving": "Kledingrekken", "omschrijving_fr": "Portants à vêtements", "vat_rate": 21},
+    {"omschrijving": "Winkelinterieurkit", "omschrijving_fr": "Kit d’aménagement de magasin", "vat_rate": 21}
   ],
   "Bouw & Installatie": [
-    {
-      "omschrijving": "Cementzakken 25kg",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "PVC-buizen 2m",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Dakisolatiepanelen",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Wandtegels keramisch",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Loodgieterkit",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Bevestigingsmaterialen",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Elektriciteitskabels 100m",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kraanonderdelen",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Gevelstenen rood",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Schroefpakketten",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Cementzakken 25kg", "omschrijving_fr": "Sacs de ciment 25 kg", "vat_rate": 21},
+    {"omschrijving": "PVC-buizen 2m", "omschrijving_fr": "Tuyaux PVC 2 m", "vat_rate": 21},
+    {"omschrijving": "Dakisolatiepanelen", "omschrijving_fr": "Panneaux d’isolation de toiture", "vat_rate": 21},
+    {"omschrijving": "Wandtegels keramisch", "omschrijving_fr": "Carreaux muraux céramiques", "vat_rate": 21},
+    {"omschrijving": "Loodgieterkit", "omschrijving_fr": "Kit de plomberie", "vat_rate": 21},
+    {"omschrijving": "Bevestigingsmaterialen", "omschrijving_fr": "Matériel de fixation", "vat_rate": 21},
+    {"omschrijving": "Elektriciteitskabels 100m", "omschrijving_fr": "Câbles électriques 100 m", "vat_rate": 21},
+    {"omschrijving": "Kraanonderdelen", "omschrijving_fr": "Pièces de robinetterie", "vat_rate": 21},
+    {"omschrijving": "Gevelstenen rood", "omschrijving_fr": "Briques de façade rouges", "vat_rate": 21},
+    {"omschrijving": "Schroefpakketten", "omschrijving_fr": "Lots de vis", "vat_rate": 21}
   ],
   "Kantoor & Meubilair": [
-    {
-      "omschrijving": "Bureau met ladeblok",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Ergonomische bureaustoel",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Vergadertafel hout",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kladblokken A4",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Printerpapier doos",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Whiteboard magnetisch",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Documentkasten met slot",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Laptophouder",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Kabelgoten set",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "LED bureaulamp",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Bureau met ladeblok", "omschrijving_fr": "Bureau avec caisson", "vat_rate": 21},
+    {"omschrijving": "Ergonomische bureaustoel", "omschrijving_fr": "Chaise de bureau ergonomique", "vat_rate": 21},
+    {"omschrijving": "Vergadertafel hout", "omschrijving_fr": "Table de réunion en bois", "vat_rate": 21},
+    {"omschrijving": "Kladblokken A4", "omschrijving_fr": "Blocs-notes A4", "vat_rate": 21},
+    {"omschrijving": "Printerpapier doos", "omschrijving_fr": "Boîte de papier d’imprimante", "vat_rate": 21},
+    {"omschrijving": "Whiteboard magnetisch", "omschrijving_fr": "Tableau blanc magnétique", "vat_rate": 21},
+    {"omschrijving": "Documentkasten met slot", "omschrijving_fr": "Armoires à documents verrouillables", "vat_rate": 21},
+    {"omschrijving": "Laptophouder", "omschrijving_fr": "Support pour ordinateur portable", "vat_rate": 21},
+    {"omschrijving": "Kabelgoten set", "omschrijving_fr": "Kit de goulottes de câbles", "vat_rate": 21},
+    {"omschrijving": "LED bureaulamp", "omschrijving_fr": "Lampe de bureau LED", "vat_rate": 21}
   ],
   "Productie & Distributie": [
-    {
-      "omschrijving": "Verpakkingsfolie 100m",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Transportpallets",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Productlabels",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Dozen 40x30x30cm",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Tape dispensers",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Stapelbakken industrieel",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Magazijnstelling",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Palletwikkelaar",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Karton versnijdmachine",
-      "vat_rate": 21
-    },
-    {
-      "omschrijving": "Foliehechters",
-      "vat_rate": 21
-    }
+    {"omschrijving": "Verpakkingsfolie 100m", "omschrijving_fr": "Film d’emballage 100 m", "vat_rate": 21},
+    {"omschrijving": "Transportpallets", "omschrijving_fr": "Palettes de transport", "vat_rate": 21},
+    {"omschrijving": "Productlabels", "omschrijving_fr": "Étiquettes produit", "vat_rate": 21},
+    {"omschrijving": "Dozen 40x30x30cm", "omschrijving_fr": "Boîtes 40x30x30 cm", "vat_rate": 21},
+    {"omschrijving": "Tape dispensers", "omschrijving_fr": "Dérouleurs de ruban adhésif", "vat_rate": 21},
+    {"omschrijving": "Stapelbakken industrieel", "omschrijving_fr": "Bacs empilables industriels", "vat_rate": 21},
+    {"omschrijving": "Magazijnstelling", "omschrijving_fr": "Rayonnage d’entrepôt", "vat_rate": 21},
+    {"omschrijving": "Palletwikkelaar", "omschrijving_fr": "Filmeuse à palettes", "vat_rate": 21},
+    {"omschrijving": "Karton versnijdmachine", "omschrijving_fr": "Massicot à carton", "vat_rate": 21},
+    {"omschrijving": "Foliehechters", "omschrijving_fr": "Soudeuses de film", "vat_rate": 21}
   ]
 }

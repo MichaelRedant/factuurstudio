@@ -1,4 +1,5 @@
 <?php
+require_once plugin_dir_path(__DIR__) . '/i18n.php';
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;

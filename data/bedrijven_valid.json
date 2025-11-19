@@ -2,126 +2,183 @@
   {
     "naam": "Telenet BVBA",
     "btw": "BE0473416418",
-    "adres": "Liersesteenweg 4\n2800 Mechelen"
+    "adres": "Liersesteenweg 4\n2800 Mechelen",
+    "activiteit": "Telecom en internetdiensten",
+    "branche": "IT & Software"
   },
   {
     "naam": "Colruyt Group",
     "btw": "BE0400378485",
-    "adres": "Edingensesteenweg 196\n1500 Halle"
+    "adres": "Edingensesteenweg 196\n1500 Halle",
+    "activiteit": "Supermarktketen",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Delhaize Le Lion/De Leeuw",
     "btw": "BE0402206045",
-    "adres": "Square Marie Curie 20\n1070 Anderlecht"
+    "adres": "Square Marie Curie 20\n1070 Anderlecht",
+    "activiteit": "Supermarktketen",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Bpost",
     "btw": "BE0214596464",
-    "adres": "Centre Monnaie/Muntcentrum\n1000 Brussel"
+    "adres": "Centre Monnaie/Muntcentrum\n1000 Brussel",
+    "activiteit": "Post- en pakjeslogistiek",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "MediaMarkt",
     "btw": "BE0836585210",
-    "adres": "Rue de Stalle 140\n1180 Ukkel"
+    "adres": "Rue de Stalle 140\n1180 Ukkel",
+    "activiteit": "Elektronica retail",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Carrefour Belgium",
     "btw": "BE0448826918",
-    "adres": "Olympiadenlaan 20\n1140 Evere"
+    "adres": "Olympiadenlaan 20\n1140 Evere",
+    "activiteit": "Supermarktketen",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Infrabel",
     "btw": "BE0869763267",
-    "adres": "Koningsstraat 146\n1000 Brussel"
+    "adres": "Koningsstraat 146\n1000 Brussel",
+    "activiteit": "Spoorinfrastructuurbeheer",
+    "branche": "Bouw & Installatie"
   },
   {
     "naam": "Proximus",
     "btw": "BE0202239951",
-    "adres": "Boulevard du Roi Albert II 27\n1030 Schaarbeek"
+    "adres": "Boulevard du Roi Albert II 27\n1030 Schaarbeek",
+    "activiteit": "Telecom en internetdiensten",
+    "branche": "IT & Software"
   },
   {
     "naam": "NMBS",
     "btw": "BE0203430576",
-    "adres": "Frankrijkstraat 85\n1060 Sint-Gillis"
+    "adres": "Frankrijkstraat 85\n1060 Sint-Gillis",
+    "activiteit": "Spoorwegvervoerder",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "VRT",
     "btw": "BE0244142664",
-    "adres": "Auguste Reyerslaan 52\n1043 Brussel"
+    "adres": "Auguste Reyerslaan 52\n1043 Brussel",
+    "activiteit": "Publieke omroep en media",
+    "branche": "Marketing"
   },
   {
     "naam": "KBC Bank",
     "btw": "BE0462920226",
-    "adres": "Havenlaan 2\n1080 Brussel"
+    "adres": "Havenlaan 2\n1080 Brussel",
+    "activiteit": "Bank en verzekeringen",
+    "branche": "Financiën & Boekhouding"
   },
   {
-    "naam": "ING België",
+    "naam": "ING Belgium",
     "btw": "BE0403200393",
-    "adres": "Avenue Marnix 24\n1000 Brussel"
+    "adres": "Avenue Marnix 24\n1000 Brussel",
+    "activiteit": "Bank",
+    "branche": "Financiën & Boekhouding"
   },
   {
     "naam": "BNP Paribas Fortis",
     "btw": "BE0403199702",
-    "adres": "Warandeberg 3\n1000 Brussel"
+    "adres": "Warandeberg 3\n1000 Brussel",
+    "activiteit": "Bank",
+    "branche": "Financiën & Boekhouding"
   },
   {
     "naam": "De Lijn",
     "btw": "BE0629761216",
-    "adres": "Motstraat 20\n2800 Mechelen"
+    "adres": "Motstraat 20\n2800 Mechelen",
+    "activiteit": "Openbaar vervoer (bus/tram)",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "Vanden Borre",
     "btw": "BE0474776396",
-    "adres": "Edingensesteenweg 196\n1500 Halle"
+    "adres": "Edingensesteenweg 196\n1500 Halle",
+    "activiteit": "Elektronica retail",
+    "branche": "Retail & Verkoop"
   },
   {
-    "naam": "Bol.com België",
+    "naam": "Bol.com Belgium",
     "btw": "BE0824148721",
-    "adres": "Posthofbrug 6/8 bus 5\n2600 Antwerpen"
+    "adres": "Posthofbrug 6/8 bus 5\n2600 Antwerpen",
+    "activiteit": "E-commerce platform",
+    "branche": "Retail & Verkoop"
   },
   {
-    "naam": "Ikea België",
+    "naam": "Ikea Belgium",
     "btw": "BE0425258688",
-    "adres": "Neerveldstraat 107\n1200 Brussel"
+    "adres": "Neerveldstraat 107\n1200 Brussel",
+    "activiteit": "Woonwinkel en meubels",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "UZ Leuven",
     "btw": "BE0431110956",
-    "adres": "Herestraat 49\n3000 Leuven"
+    "adres": "Herestraat 49\n3000 Leuven",
+    "activiteit": "Universitair ziekenhuis",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "Ethias",
     "btw": "BE0404484654",
-    "adres": "Rue des Croisiers 24\n4000 Luik"
+    "adres": "Rue des Croisiers 24\n4000 Luik",
+    "activiteit": "Verzekeringsmaatschappij",
+    "branche": "Financiën & Boekhouding"
   },
   {
     "naam": "Touring",
     "btw": "BE0403471401",
-    "adres": "Rue de la Loi 44\n1040 Brussel"
+    "adres": "Rue de la Loi 44\n1040 Brussel",
+    "activiteit": "Pechverhelping en mobiliteit",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "Standaard Boekhandel",
     "btw": "BE0426396954",
-    "adres": "Oude Leeuwenrui 25\n2000 Antwerpen"
+    "adres": "Oude Leeuwenrui 25\n2000 Antwerpen",
+    "activiteit": "Boekhandel",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "DreamLand",
     "btw": "BE0448746645",
-    "adres": "Eikveldeken 2\n2860 Sint-Katelijne-Waver"
+    "adres": "Eikveldeken 2\n2860 Sint-Katelijne-Waver",
+    "activiteit": "Speelgoedwinkel",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Thomas Cook Retail Belgium",
     "btw": "BE0464949902",
-    "adres": "Neerveldstraat 101-103\n1200 Brussel"
+    "adres": "Neerveldstraat 101-103\n1200 Brussel",
+    "activiteit": "Reisbureau",
+    "branche": "Retail & Verkoop"
   },
   {
     "naam": "Electrabel",
     "btw": "BE0403170701",
-    "adres": "Simon Bolivarlaan 34\n1000 Brussel"
+    "adres": "Simon Bolivarlaan 34\n1000 Brussel",
+    "activiteit": "Energievoorziening",
+    "branche": "Productie & Distributie"
   },
   {
     "naam": "Xinu BVBA",
     "btw": "BE0681759451",
-    "adres": "Provincieweg 34a \n9552 Borsbeke"
+    "adres": "Provincieweg 34a \n9552 Borsbeke",
+    "activiteit": "Marketingdiensten",
+    "branches": ["Marketing", "Design & Drukwerk"]
+  },
+  {
+    "naam": "X3DPrints",
+    "btw": "BE0765432101",
+    "adres": "Provincieweg 34a 9552 Borsbeke",
+    "activiteit": "3D printservice",
+    "branches": ["Productie & Distributie"]
   }
 ]

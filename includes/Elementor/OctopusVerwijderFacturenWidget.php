@@ -1,4 +1,5 @@
 <?php
+require_once plugin_dir_path(__DIR__) . '/i18n.php';
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Plugin;
@@ -10,7 +11,7 @@ class OctopusVerwijderFacturenWidget extends Widget_Base {
     }
 
     public function get_title() {
-        return 'Verwijder Facturen';
+        return function_exists('octo_t') ? octo_t('Verwijder Facturen','Supprimer des factures') : 'Verwijder Facturen';
     }
 
     public function get_icon() {

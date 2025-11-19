@@ -1,4 +1,5 @@
 <?php
+require_once plugin_dir_path(__DIR__) . '/i18n.php';
 use Elementor\Plugin;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
@@ -12,7 +13,7 @@ class OctopusVerstuurXmlWidget extends Widget_Base {
     }
 
     public function get_title() {
-        return 'Verstuur XML-facturen';
+        return function_exists('octo_t') ? octo_t('Verstuur XML-facturen','Envoyer les factures XML') : 'Verstuur XML-facturen';
     }
 
     public function get_icon() {

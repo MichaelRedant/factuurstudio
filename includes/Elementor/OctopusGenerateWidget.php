@@ -1,4 +1,5 @@
 <?php
+require_once plugin_dir_path(__DIR__) . '/i18n.php';
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -11,7 +12,7 @@ class OctopusGenerateWidget extends Widget_Base {
     }
 
     public function get_title() {
-        return 'Genereer Facturen';
+        return function_exists('octo_t') ? octo_t('Genereer Facturen','Générer des factures') : 'Genereer Facturen';
     }
 
     public function get_icon() {

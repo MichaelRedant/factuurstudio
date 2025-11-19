@@ -1,4 +1,5 @@
 <?php
+require_once plugin_dir_path(__DIR__) . '/i18n.php';
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -12,7 +13,7 @@ class OctopusFacturenWidget extends Widget_Base {
     }
 
     public function get_title() {
-        return 'Facturenoverzicht';
+        return function_exists('octo_t') ? octo_t('Facturenoverzicht','Aperçu des factures') : 'Facturenoverzicht';
     }
 
     public function get_icon() {
